@@ -39,7 +39,7 @@ const Register = ({ db }) => {
             value: '',
             error: false
         },
-        confirmarPassword: {
+        confirmPassword: {
             value: '',
             error: false
         },
@@ -66,7 +66,14 @@ const Register = ({ db }) => {
                 isValid = false
 
         }
+
         setData(_data);
+
+        if (_data.password.value !== _data.confirmPassword.value) {
+            setErrorMessage("A senha esta diferente da confirmação")
+            isValid = false
+        }
+
         return isValid;
     }
 
@@ -79,7 +86,7 @@ const Register = ({ db }) => {
                     setButtonDisabled(false)
                     const user = userCredential.user;
                     const usuario = collection(db, "user");
-                    await setDoc(doc(usuario, user.uid), {                      
+                    await setDoc(doc(usuario, user.uid), {
                         email: data.email.value,
                         birthDate: data.birthDate.value,
                         name: data.name.value,
@@ -133,8 +140,8 @@ const Register = ({ db }) => {
                     onChange={(input) => { updateField(input.target) }} />
                 <TextField label='Senha' name="password" value={data.password.value} placeholder='password' type='password' fullWidth required error={data.password.error}
                     onChange={(input) => { updateField(input.target) }} />
-                <TextField label='Confirmar password' name="confirmarPassword" value={data.confirmarPassword.value} placeholder='Confirmar senha' type='password'
-                    fullWidth required error={data.password.error} onChange={(input) => { updateField(input.target) }} />
+                <TextField label='Confirmar password' name="confirmPassword" value={data.confirmPassword.value} placeholder='Confirmar senha' type='password'
+                    fullWidth required error={data.confirmPassword.error} onChange={(input) => { updateField(input.target) }} />
                 <FormControl fullWidth>
                     <Button type='submit' color='primary' variant="contained" style={btnstyle} onClick={register} disabled={buttonDisabled} fullWidth>Cadastrar</Button>
                     {errorMessage && <FormHelperText style={errorMessageStyle}>{errorMessage}</FormHelperText>}
