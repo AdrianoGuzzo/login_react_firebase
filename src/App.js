@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
-import Routes from "./components/Routes";
+import Routes from "./Components/Routes";
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from "firebase/firestore";
 
-// TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyB53t754Z0t9BVkcDPbKQw9LvURcyqqMq0",
   authDomain: "login-9d933.firebaseapp.com",
@@ -15,10 +14,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
+const db = getFirestore(app);
 function App() {
   return (
-    <Routes/>
+    <Routes db={db} />
   );
 }
 

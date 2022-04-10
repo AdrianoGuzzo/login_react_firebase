@@ -2,11 +2,11 @@ import React from "react";
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
-import Cadastro from "./Cadastro/Cadastro";
+import Register from "./Register/Register";
 import Login from "./Login/Login";
+import Main from "./Main/Main";
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -17,7 +17,7 @@ import Login from "./Login/Login";
 // making sure things like the back button and bookmarks
 // work properly.
 
-export default function BasicExample() {
+export default function BasicExample({ db }) {
     return (
         <Router>
             <Switch>
@@ -25,7 +25,10 @@ export default function BasicExample() {
                     <Login />
                 </Route>
                 <Route path="/cadastro">
-                    <Cadastro />
+                    <Register db={db} />
+                </Route>
+                <Route path="/principal/:id">
+                    <Main db={db} />
                 </Route>
             </Switch>
         </Router>
